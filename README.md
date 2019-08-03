@@ -1,24 +1,3 @@
-# README
+# 『現場で使える Ruby on Rails 5速習実践ガイド』のChapter3で作ったタスク管理アプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[サポートサイト](https://book.mynavi.jp/supportsite/detail/9784839962227.html)
