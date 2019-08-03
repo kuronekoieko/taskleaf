@@ -1,3 +1,4 @@
+/slimでのコメント文はスラッシュ一個
 h1 タスク一覧
 = link_to "新規登録",new_task_path,class:"btn btn-primary"
 
@@ -5,6 +6,7 @@ h1 タスク一覧
 table.table.table-hover
  thread.thread-default
   tr
+  /カラム名を取得
    th= Task.human_attribute_name(:name)
    th= Task.human_attribute_name(:created_at)
  tbody
