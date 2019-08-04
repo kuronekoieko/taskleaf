@@ -9,6 +9,9 @@ class TasksController < ApplicationController
   end
 
   def show
+    #findは、Task.find_by(id: params[:id])と同じ
+    #idで検索するメソッド
+    @task = Task.find(params[:id])
   end
 
   def new

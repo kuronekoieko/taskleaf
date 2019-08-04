@@ -1,16 +1,19 @@
-/slimでのコメント文はスラッシュ一個
+/ slimでのコメント文はスラッシュ一個
+/ スラッシュのインデントに注意しないと、それ以下のコードが消える
 h1 タスク一覧
 = link_to "新規登録",new_task_path,class:"btn btn-primary"
-
 .mb-3
 table.table.table-hover
  thread.thread-default
+  / カラム名を取得
   tr
-  /カラム名を取得
    th= Task.human_attribute_name(:name)
    th= Task.human_attribute_name(:created_at)
  tbody
  - @tasks.each do |task|
    tr
-    td= task.name
+    / "task/[タスクのID]"というURLに遷移
+    / urlはtaskというオブジェクトからrailsが自動生成してくれる
+    / もしくはヘルパーメソッドでtask_path(task)
+    td= link_to task.name,task
     td= task.created_at
