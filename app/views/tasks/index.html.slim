@@ -18,4 +18,8 @@ table.table.table-hover
     / もしくはヘルパーメソッドでtask_path(task)
     td= link_to task.name,task
     td= task.created_at
-    td= link_to "編集",edit_task_path(task),class: "btn btn-primary mr-3"
+    td
+      = link_to "編集",edit_task_path(task),class: "btn btn-primary mr-3"
+      /method: delete → httpメソッドのDELETEメソッドを指定、これをしないと詳細ページに飛ぶ
+      /dataオプションにconfirm:"メッセージ内容"を渡すとリンクをクリックしたときに確認ダイアログを出し、OKが押された時にURLのリクエストをする
+      = link_to "削除",task, method: :delete, data: {confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} ,class: "btn btn-danger" 
