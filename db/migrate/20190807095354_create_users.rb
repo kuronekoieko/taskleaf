@@ -1,4 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
+  has_secure_password
+
   def change
     create_table :users do |t|
       t.string :name, null: false
