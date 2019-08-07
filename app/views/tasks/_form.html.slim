@@ -3,6 +3,13 @@
 /パーシャルテンプレートのファイル名にはアンダースコアをつける
 /パーシャルテンプレートをrenderメソッドで呼び出す際には、アンダースコアをつけない名前を用いる
 
+/検証エラーの有無をチェックする
+- if task.errors.present?
+ /エラーがあるときにエラーメッセージを表示する
+ ul#error_explanation
+  - task.errors.full_messages.each do |message|
+   li= message
+
 =form_with model:task,local: true do |f|
   .form-group
     = f.label :name

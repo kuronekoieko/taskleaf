@@ -29,14 +29,18 @@ class TasksController < ApplicationController
   end
 
   # saveに！つけるのはなぜ？
+  # → バリデーション(検証エラー)時にfalseを返すのではなく例外を発生させる
   # フラッシュメッセージ
   # →リダイレクトする時に送れる
   # →application.html.slimで、フラッシュメッセージが存在する時に表示されるようにする(ifでタグを囲む)
   # →フラッシュメッセージは次のリダイレクトまで残る。次の次には消える
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスク#{task.name}を登録しました"
+    @task = Task.new(task_params)
+    if task.save
+      redirect_to @task, notice: "タスク#{@task.name}を登録しました"
+    else
+      render :new
+    end
   end
 
   def destroy
