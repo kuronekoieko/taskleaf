@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   # →フラッシュメッセージは次のリダイレクトまで残る。次の次には消える
   def create
     @task = Task.new(task_params)
-    if task.save
+    if @task.save
       redirect_to @task, notice: "タスク#{@task.name}を登録しました"
     else
       render :new

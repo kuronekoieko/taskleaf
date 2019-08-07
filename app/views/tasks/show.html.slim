@@ -12,9 +12,6 @@ table.table.table-hover
    td= @task.name
   tr
    th= Task.human_attribute_name(:description)
-   td= @task.description
-  tr
-   th= Task.human_attribute_name(:id)
    /改行コードをHTMLにそのまま出力すると、単純にタグの改行とみなされ、ブラウザ上では改行されてるように表示されない
    /改行を<br>などに変換する必要がある
    /simple_formatを使うと<p>タグに変換してくれる
