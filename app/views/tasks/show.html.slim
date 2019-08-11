@@ -1,28 +1,28 @@
-  h1 タスクの詳細
+h1 タスクの詳細
 
-  .nav.justify-content-end
-    = link_to "一覧",tasks_path,class: "nav-link"
-  table.table.table-hover
+.nav.justify-content-end
+ = link_to "一覧",tasks_path,class: "nav-link"
+ table.table.table-hover
   tbody
     tr
-    th= Task.human_attribute_name(:id)
-    td= @task.id
+     th= Task.human_attribute_name(:id)
+     td= @task.id
     tr
-    th= Task.human_attribute_name(:name)
-    td= @task.name
+     th= Task.human_attribute_name(:name)
+     td= @task.name
     tr
-    th= Task.human_attribute_name(:description)
-    /改行コードをHTMLにそのまま出力すると、単純にタグの改行とみなされ、ブラウザ上では改行されてるように表示されない
-    /改行を<br>などに変換する必要がある
-    /simple_formatを使うと<p>タグに変換してくれる
-    /sanitizeオプション→テキストに含まれる一部の危険なタグを取り除いてくれる
-    /今回は一部ではなく、全てのタグを安全な形で表示したいので、sanitizeをfalseにしてhメソッドを使用する
-    /デザインの都合上、<p>ではなく<div>で囲みたいので、wrapper_tagでdivを指定している
-    td= simple_format(h(@task.description),{},sanitize: false,wrapper_tag: "div")
+     th= Task.human_attribute_name(:description)
+     /改行コードをHTMLにそのまま出力すると、単純にタグの改行とみなされ、ブラウザ上では改行されてるように表示されない
+     /改行を<br>などに変換する必要がある
+     /simple_formatを使うと<p>タグに変換してくれる
+     /sanitizeオプション→テキストに含まれる一部の危険なタグを取り除いてくれる
+     /今回は一部ではなく、全てのタグを安全な形で表示したいので、sanitizeをfalseにしてhメソッドを使用する
+     /デザインの都合上、<p>ではなく<div>で囲みたいので、wrapper_tagでdivを指定している
+     td= simple_format(h(@task.description),{},sanitize: false,wrapper_tag: "div")
     tr
-    th= Task.human_attribute_name(:created_at)
-    td= @task.created_at
+     th= Task.human_attribute_name(:created_at)
+     td= @task.created_at
     tr
-    th= Task.human_attribute_name(:updated_at)
-    td= @task.updated_at
+     th= Task.human_attribute_name(:updated_at)
+     td= @task.updated_at
   = link_to "編集",edit_task_path,class: "btn btn-primary mr-3"
