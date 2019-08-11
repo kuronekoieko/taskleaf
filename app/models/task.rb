@@ -7,6 +7,8 @@ class Task < ApplicationRecord
   # 「関連」を定義
   # task.userのように、タスクからユーザーのオブジェクトを取得できる
   belongs_to :user
+  # よく使う絞り込み処理をクエリメソッドとして自前で用意して使用することができる
+  scope :recent, -> { order(created_at: :desc) }
 
   #外部から呼ばれることを想定していないのでprivateにしておく
   private

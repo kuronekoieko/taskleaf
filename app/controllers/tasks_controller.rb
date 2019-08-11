@@ -4,8 +4,11 @@ class TasksController < ApplicationController
 複数行のコメント
 スペースは開けない
 =end
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   def index
-    @tasks = current_user.tasks
+    #recent:カスタムのクエリメソッド、task.rbで定義
+    @tasks = current_user.tasks.recent
   end
 
   def show
@@ -13,7 +16,7 @@ class TasksController < ApplicationController
     # idで検索するメソッド
     # この状態だと、他のユーザーが適当に入れたタスクが見れてしまう
     # @task = Task.find(params[:id])
-    @task = current_user.tasks.find(params[:id])
+    #@task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -21,13 +24,13 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = current_user.tasks.find(params[:id])
+    #@task = current_user.tasks.find(params[:id])
   end
 
   def update
-    task = current_user.tasks.find(params[:id])
-    task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク#{task.name}を更新しました"
+    #task = current_user.tasks.find(params[:id])
+    @task.update!(task_params)
+    redirect_to tasks_url, notice: "タスク#{@task.name}を更新しました"
   end
 
   # saveに！つけるのはなぜ？
@@ -47,8 +50,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = current_user.tasks.find(params[:id])
-    task.destroy
+    # task = current_user.tasks.find(params[:id])
+    @task.destroy
     redirect_to tasks_url, notice: "タスク#{task.name}を削除しました"
   end
 
@@ -60,5 +63,9 @@ class TasksController < ApplicationController
   # Strong parametersと呼ばれる
   def task_params
     params.require(:task).permit(:name, :description)
+  end
+
+  def set_task
+    @task = current_user.tasks.find(params[:id])
   end
 end
