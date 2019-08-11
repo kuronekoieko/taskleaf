@@ -13,11 +13,16 @@ class SessionsController < ApplicationController
     # その結果がUserオブジェクト内部に保存されているdigestと一致するかどうかを調べる
     # 一致していたらUserオブジェクトを、一致していなければfalseを返す
     if user&.authenticate(session_params[:password])
-      settion[:user_id] = user.def index
+      session[:user_id] = user.id
       redirect_to root_path, notice: "ログインしました。"
     else
       render :new
     end
+  end
+
+  def destroy
+    reset_session
+    redirect_to root_path, notice: "ログアウトしました。"
   end
 
   private

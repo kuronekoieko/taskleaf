@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  #これを定義するとすべてのビューから呼べるようになる
   helper_method :current_user
 
   private
