@@ -4,6 +4,9 @@ class Task < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 30 }
   validate :validate_name_not_including_comma
+  # 「関連」を定義
+  # task.userのように、タスクからユーザーのオブジェクトを取得できる
+  belongs_to :user
 
   #外部から呼ばれることを想定していないのでprivateにしておく
   private
