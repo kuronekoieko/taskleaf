@@ -3,6 +3,9 @@ require "rails_helper"
 
 describe "タスク管理機能", type: :system do
   describe "一覧表示機能" do
+    #letを使って処理を共通化する
+    let(:user_a) { FactoryBot.create(:user, name: "ユーザーA", email: "a@example.com") }
+    let(:user_b) { FactoryBot.create(:user, name: "ユーザーB", email: "b@example.com") }
     before do
       # ユーザーAを作成しておく
       # :userファクトリを指定してUserオブジェクトを作成する
@@ -10,24 +13,27 @@ describe "タスク管理機能", type: :system do
       # FactoryBot.buildで生成だけできる
       # user_a = FactoryBot.create(:user)
       # 一部の属性を変更してデータを作ることもできる
-      user_a = FactoryBot.create(:user, name: "ユーザーA", email: "a@example.com")
+      # user_a = FactoryBot.create(:user, name: "ユーザーA", email: "a@example.com")
       # 作成者がユーザーAであるタスクを作成しておく
       FactoryBot.create(:task, name: "最初のタスク", user: user_a)
+
+      # ユーザーAでログインする
+      # 特定のURLでアクセスする、という動作はvisit [URL]という動作でできる
+      visit login_path
+      # 「メールアドレス」というラベル(<label>要素)がついた
+      # テキストフィールド(<input>)要素にメールアドレスを入れる
+      # fill_in "ラベル値", with "インプット値"
+      #fill_in "メールアドレス", with: "a@example.com"
+      fill_in "メールアドレス", with: login_user.email
+      # fill_in "パスワード", with: "password"
+      fill_in "パスワード", with: login_user.password
+      # 「ログインする」ボタンを押す
+      click_button "ログインする"
     end
     context "ユーザーAがログインしているとき" do
-      before do
-        # ユーザーAでログインする
-        # 特定のURLでアクセスする、という動作はvisit [URL]という動作でできる
-        visit login_path
-        # 「メールアドレス」というラベル(<label>要素)がついた
-        # テキストフィールド(<input>)要素にメールアドレスを入れる
-        # fill_in "ラベル値", with "インプット値"
-        fill_in "メールアドレス", with: "a@example.com"
-        fill_in "パスワード", with: "password"
-        # 「ログインする」ボタンを押す
-        click_button "ログインする"
-      end
-
+      # contextの中で定義すると、その内側でも外側でも変数のように呼び出して使える
+      # ここでは上の方で定義したuser_aというletを呼び出してlogin_userとして定義している
+      let(:login_user) { user_a }
       it "ユーザーAが作成したタスクが表示される" do
         # 作成済みタスクの名称が画面上に表示されていることを確認
         # have_contentの部分は「マッチャ(Macher)」と呼ばれる
@@ -35,9 +41,10 @@ describe "タスク管理機能", type: :system do
       end
     end
     context "ユーザーBがログインしているとき" do
+      let(:login_user) { user_b }
       before do
         # ユーザーBを作成しておく
-        FactoryBot.create(:user, name: "ユーザーB", email: "b@example.com")
+        # FactoryBot.create(:user, name: "ユーザーB", email: "b@example.com")
         # ユーザーBでログインする
         visit login_path
         fill_in "メールアドレス", with: "b@example.com"
