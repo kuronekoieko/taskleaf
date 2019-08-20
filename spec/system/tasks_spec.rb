@@ -89,6 +89,7 @@ describe "タスク管理機能", type: :system do
 
   describe "新規作成機能" do
     let(:login_user) { user_a }
+    let(:task_name) { "新規作成のテストを書く" } #デフォルトとして設定
 
     before do
       visit new_task_path
@@ -107,6 +108,7 @@ describe "タスク管理機能", type: :system do
     end
 
     context "新規作成画面で名称を入力しなかったとき" do
+      # 同じletが複数回呼ばれると上書きされる
       let(:task_name) { "" }
 
       it "エラーとなる" do
